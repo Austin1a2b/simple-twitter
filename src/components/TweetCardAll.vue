@@ -148,6 +148,7 @@ export default {
     async addlike(tweetId) {
       try {
         const response = await tweetsAPI.likeTweet(tweetId);
+        console.log(response);
         console.log(this.tweets);
 
         this.tweets = this.tweets.map((tweet) => {
@@ -160,8 +161,6 @@ export default {
             return tweet;
           }
         });
-
-
       } catch (error) {
         console.log(error);
       }
