@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+  font-family: Montserrat, Noto Sans TC;
+}
+
+h1 {
+  font-size: 68px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* .text-secondary 留言 愛心部分 可以用 */
+
+.font-color-darkest {
+  color: #171725;
+}
+
+.font-color-dark {
+  color: #657786;
+}
+
+.font-color-light {
+  color: #92929D;
+}
+
+.font-color-lightest {
+  color: #E6ECF0;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-16 {
+  font-size: 16px;
+}
+
+.font-size-18 {
+  font-size: 18px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+/* 表格樣式*/
+
+.form-wrapper {
+  background-color: #F5F8FA;
+  border-bottom-style: solid;
+  border-color: #657786;
+  border-width: 2px;
+  padding-left: 16px;
+  color: #696974
+}
+
+.form-wrapper:hover,
+.form-wrapper:focus {
+  border-color: #50B5FF
+}
+
+.form-wrapper.wrong {
+  border-color: #FC5A5A;
+}
+
+::placeholder {
+  color: #B5B5BE;
+  font-size: 18px;
+}
+
+.form {
+  border: 0px;
+  background-color: #f5f8fa;
+}
+
+.form:focus {
+  border: 0px;
+  background-color: #f5f8fa;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.errorMesssage {
+  color: #FC5A5A;
+  height: 24px
+}
+
+
+/* 按鈕樣式 */
+
+.btn-singin {
+  background-color: #FF6600;
+  height: 46px;
+  width: 400px;
+  border-radius: 50px;
+}
+
+.btn-w88 {
+  background-color: #FF6600;
+  height: 46px;
+  width: 88px;
+  border-radius: 50px;
+}
+
+.btn-w64 {
+  background-color: #FF6600;
+  height: 40px;
+  width: 64px;
+  border-radius: 50px;
+}
