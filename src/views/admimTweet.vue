@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      try
       <adminNavbar />
     </div>
     <div v-for="tweet in tweets" :key="tweet.id" class="tweet-card">
