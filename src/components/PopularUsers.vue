@@ -1,38 +1,96 @@
 <template>
   <section class="popular-users">
     <h1 class="font-size-24">跟隨誰</h1>
-    <div class="popular-card">
+
+    <div class="popular-card" v-for="topUser in topUsers" :key="topUser.id">
       <div class="d-flex">
-        <img
-          class="avatar mr-1"
-          src="https://image.cache.storm.mg/styles/smg-800xauto-er/s3/media/image/2020/07/04/20200704-125106_U5965_M622512_2945.png?itok=jD_-1XjG"
-          alt=""
-        />
+        <img class="avatar mr-1" :src="topUser.avatar" alt="" />
         <div>
-          <h4 class="font-size-16">Pizza Hut</h4>
-          <p class="font-size-14">@pizzahut</p>
+          <h4 class="font-size-16">{{ topUser.name }}</h4>
+          <p class="font-size-14">@{{ topUser.account }}</p>
         </div>
       </div>
+      <button
+        v-if="topUser.isFollowing"
+        @click.stop.prevent="cancelFollowing(topUser.id)"
+        class="btn-is-following"
+      >
+        正在跟隨
+      </button>
 
-      <button class="btn-is-following">正在跟隨</button>
-    </div>
-    <div class="popular-card">
-      <div class="d-flex">
-        <img
-          class="avatar"
-          src="https://image.cache.storm.mg/styles/smg-800xauto-er/s3/media/image/2020/07/04/20200704-125106_U5965_M622512_2945.png?itok=jD_-1XjG"
-          alt=""
-        />
-        <div>
-          <h4 class="font-size-16">Pizza Hut</h4>
-          <p class="font-size-14">@pizzahut</p>
-        </div>
-      </div>
-
-      <button class="btn-not-following">跟隨</button>
+      <button
+        v-else
+        @click.stop.prevent="addFollowing(topUser.id)"
+        class="btn-not-following"
+      >
+        跟隨
+      </button>
     </div>
   </section>
 </template>
+
+<script>
+import usersAPI from "./../apis/users";
+
+export default {
+  data() {
+    return {
+      topUsers: [],
+    };
+  },
+  methods: {
+    async fetchTopUsers() {
+      try {
+        const response = await usersAPI.getTopUsers();
+        const data = response.data.result;
+        this.topUsers = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addFollowing(followingId) {
+      try {
+        const response = await usersAPI.addFollowing(followingId);
+
+        this.topUsers = this.topUsers.map((user) => {
+          if (user.id === followingId) {
+            return {
+              ...user,
+              isFollowing: !user.isFollowing,
+            };
+          } else {
+            return user;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async cancelFollowing(id) {
+      try {
+        const response = await usersAPI.cancelFollowing(id);
+        console.log(id);
+        this.topUsers = this.topUsers.map((user) => {
+          console.log(this.isFollowing);
+          if (user.id === id) {
+            return {
+              ...user,
+              isFollowing: !user.isFollowing,
+            };
+          } else {
+            return user;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.fetchTopUsers();
+  },
+};
+</script>
 
 <style scoped>
 .popular-users {

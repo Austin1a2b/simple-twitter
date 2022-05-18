@@ -7,12 +7,17 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
-  getUserReply(userId) {
+  getUserTweets(userId) {
+    return apiHelper.get(`/users/${userId}/tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  getUserReplies(userId) {
     return apiHelper.get(`/users/${userId}/replied_tweets`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
-  getUserLike(userId) {
+  getUserLikes(userId) {
     return apiHelper.get(`/users/${userId}/likes`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
@@ -27,8 +32,37 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
+  //// 以下為 新增 
+  getAccountInfo() {
+    return apiHelper.get('/users/setting', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  putAccountInfo({ data }) {
+    console.log('inapi')
+    console.log({ ...data })
+    return apiHelper.put(`/users/setting`, { ...data }, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
 
+  getTopUsers() {
+    return apiHelper.get('/users/top', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
 
-  // 跟對方要程式碼 避免覆蓋對方檔案 
+  addFollowing(followingId) {
+    return apiHelper.post('/followships', { id: followingId }, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+
+  cancelFollowing(id) {
+    return apiHelper.delete(`followships/${id
+      }`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  }
 
 }

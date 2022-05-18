@@ -73,9 +73,9 @@ export default {
       try {
         const response = await tweetsAPI.getTweetreplies(tweetId);
         // 後續 資料 會再更動
-        const data = response.data.data;
-        this.replies = data.replies;
-        console.log(this.replies[2]);
+        const data = response.data;
+        this.replies = data;
+        console.log(this.replies);
       } catch (error) {
         console.log(error);
       }

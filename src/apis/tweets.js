@@ -10,7 +10,6 @@ export default {
     })
   },
 
-
   getTweetDetail(tweetId) {
     return apiHelper.get(`/tweets/${tweetId}`, {
       headers: { Authorization: `Bearer ${getToken()}` }
@@ -22,25 +21,23 @@ export default {
     })
   },
 
-
   likeTweet(tweetId) {
-    console.log('tweetId', tweetId)
-    return apiHelper.post(`/tweets/${tweetId}/like`, {
+    console.log('add , tweetId', tweetId)
+    return apiHelper.post(`/tweets/${tweetId}/like`, null, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
 
   unlikeTweet(tweetId) {
     console.log('tweetId', tweetId)
-    return apiHelper.post(`/tweets/${tweetId}/unlike`, {
+    return apiHelper.post(`/tweets/${tweetId}/unlike`, null, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
 
-  postTweetReply({ tweetId, description }) {
-    console.log('tweetId', tweetId)
-    console.log(`description`, description)
-    return apiHelper.post(`/tweets/${tweetId}/replies`, description, {
+  postTweetReply({ tweetId, comment }) {
+    console.log(`comment`, comment)
+    return apiHelper.post(`/tweets/${tweetId}/replies`, { comment }, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },

@@ -148,6 +148,7 @@ export default {
       try {
         const response = await tweetsAPI.getTweetDetail(tweetId);
         const { data } = response;
+        console.log(data);
         this.tweet = data;
         this.user = {
           account: data.User.account,
