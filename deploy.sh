@@ -24,4 +24,3 @@ git commit -m "上傳dist"
 # git push -f 這邊放 reop 網址   主幹名稱:gh-pages
 git push -f https://github.com/Austin1a2b/simple-twitter.git  master:gh-pages
 
-cd -
