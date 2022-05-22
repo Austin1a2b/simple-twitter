@@ -9,7 +9,12 @@ import login from "./../views/loginPage"
 import UserFollowShip from "./../views/UserFollowShip"
 import UserFollowers from "./../components/UserFollowers"
 import UserFollowings from "./../components/UserFollowings"
+import store from './../store'
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 Vue.use(VueRouter)
 
@@ -81,7 +86,7 @@ const routes = [
   {
     path: '/home/tweet/:id',
     name: 'tweetMessage',
-    component: () => import('./../views/replyList')
+    component: () => import('./../views/replyPage')
   },
   {
     path: "/admin/tweet",
@@ -89,17 +94,13 @@ const routes = [
     component: () => import('./../views/admimTweet')
 
   },
-
-  // 以下為新增
   {
     path: "/admin/user",
     name: "admimUser",
     component: () => import('./../views/admimUser')
-
   },
-  //以上為新增
   {
-    path: '/home/:id',
+    path: '/home',
     name: 'home',
     component: () => import('./../views/mainPage')
   },
@@ -108,11 +109,32 @@ const routes = [
     name: 'not-found',
     component: NotFound
   },
-
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem('token')
+  let isAuthenticated = false
+
+  // 比較 localStorage 和 store 中的 token 是否一樣
+  if (token) {
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
+  }
+
+  // 對於不需要驗證 token 的頁面
+  const pathsWithoutAuthentication = ['regist', 'login', 'adminLogin',]
+
+  // 如果 token 無效且進入需要驗證的頁面則轉址到登入頁
+  // 拿掉!isAuthenticated &&
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
+    next('/login')
+    return
+  }
+
+  next()
 })
 
 export default router

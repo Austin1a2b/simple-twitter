@@ -47,7 +47,7 @@
           src="https://i.postimg.cc/3Rb08d24/message.png"
           alt=""
           data-toggle="modal"
-          data-target="#replyTwitterModal"
+          data-target="#replyTweeterModal"
         />
         <img
           v-if="!tweet.isLiked"
@@ -68,10 +68,10 @@
       <div>
         <div
           class="modal fade"
-          id="replyTwitterModal"
+          id="replyTweeterModal"
           tabindex="-1"
           role="dialog"
-          aria-labelledby="replyTwitterModal"
+          aria-labelledby="replyTweeterModal"
           aria-hidden="true"
         >
           <div class="modal-dialog" role="document">
@@ -259,7 +259,7 @@ import NavBar from "./../components/NavBar.vue";
 import PopularUsers from "./../components/PopularUsers.vue";
 import { mapState } from "vuex";
 import { fromNowFilter } from "./../utils/mixins";
-import { Toast } from "./../utils/helpers";
+import $ from "jquery";
 import tweetsAPI from "./../apis/tweets.js";
 import moment from "moment";
 
@@ -301,11 +301,9 @@ export default {
         };
         this.UserId = data.UserId;
         //  時間格式調整
-        console.log(this.tweet.createdAt);
         const time = moment(this.tweet.createdAt).format(
           "YYYY MM D, hh:mm:ss a"
         );
-        console.log(time);
         const year = time.substr(0, 4);
         const month = time.substr(5, 2);
         const date = time.substr(8, 2);
@@ -353,6 +351,7 @@ export default {
         this.tweet.replyCount = this.tweet.replyCount + 1;
         this.replyMessage = "";
         this.blankContent = false;
+        $("#replyTweeterModal").modal("hide");
       } catch (error) {
         console.log(error);
       }
@@ -413,7 +412,7 @@ export default {
 
 /* 大區塊 */
 .popular-users {
-  width: 25%;
+  width: 22%;
 }
 
 .center-area {

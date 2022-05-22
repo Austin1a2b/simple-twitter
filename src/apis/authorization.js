@@ -14,7 +14,6 @@ export default {
     })
   },
   adminSignIn(data) {
-    console.log('in.api')
     return apiHelper.post('/admin/login', {
       ...data
     })

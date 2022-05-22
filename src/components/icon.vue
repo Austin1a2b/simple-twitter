@@ -21,6 +21,7 @@ export default {
       PcUser: "https://i.postimg.cc/qvB6y8y2/PcUser.png",
       PcUserActive: "https://i.postimg.cc/28kSKCyD/Pc-User-Active.png",
       PadPost: "https://i.postimg.cc/cLGXS5q0/PadPost.png",
+      postIcon2: "https://i.postimg.cc/Y93L2z3G/icon.png",
       notification: "https://i.postimg.cc/RFjXJnGn/btn-notfi.png",
       notificationActive: "https://i.postimg.cc/NFbh64nz/Ellipse-2.png",
       logoOut: "https://i.postimg.cc/NjVnH4Yp/logoOut.png",

@@ -68,20 +68,11 @@ h5 {
 
 .form-wrapper {
   background-color: #F5F8FA;
-  border-bottom-style: solid;
-  border-color: #657786;
-  border-width: 2px;
-  padding-left: 16px;
   color: #696974
 }
 
-.form-wrapper:hover,
-.form-wrapper:focus {
-  border-color: #50B5FF
-}
-
-.form-wrapper.wrong {
-  border-color: #FC5A5A;
+label {
+  padding-left: 16px;
 }
 
 ::placeholder {
@@ -90,22 +81,39 @@ h5 {
 }
 
 .form {
-  border: 0px;
+  border-bottom: 2px solid #657786;
   background-color: #f5f8fa;
+  width: 100%;
+  height: 100%;
+  padding-left: 16px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
 }
 
-.form:focus {
+.form:focus,
+.form:hover {
   border: 0px;
   background-color: #f5f8fa;
   -webkit-appearance: none;
   outline: none;
+  border-bottom: 2px solid #50B5FF
 }
 
-.errorMesssage {
+.form.wrong {
+  border-bottom: 2px solid #ff5070
+}
+
+.error-message {
+  font-size: 14px;
   color: #FC5A5A;
   height: 24px
 }
 
+.error-notice {
+  font-size: 15px;
+  color: #FC5A5A;
+}
 
 /* 按鈕樣式 */
 

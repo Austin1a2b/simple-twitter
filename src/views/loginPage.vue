@@ -11,7 +11,7 @@
     <h3 class="text-center font-weight-bold">登入 Alphitter</h3>
 
     <form @submit.prevent.stop="handleSubmit">
-      <div class="form-wrapper mt-5" :class="{ wrong: error }" height="54px">
+      <div class="form-wrapper mt-5" height="54px">
         <label for="account">帳號</label>
         <div>
           <input
@@ -20,18 +20,22 @@
             name="account"
             type="text"
             class="form"
+            :class="{ wrong: showError }"
             placeholder="請輸入帳號"
             required
             autofocus
           />
         </div>
       </div>
-
-      <div class="errorMesssage">
-        <span v-show="error">{{ errorMesssage }}</span>
+      <div class="error-message">
+        <span v-show="showError">{{ errorMessage }} </span>
       </div>
 
-      <div class="form-wrapper mt-4" :class="{ wrong: error }" height="54px">
+      <div
+        class="form-wrapper mt-4"
+        :class="{ wrong: showError }"
+        height="54px"
+      >
         <label for="password">密碼</label>
         <div>
           <input
@@ -40,6 +44,7 @@
             name="password"
             type="password"
             class="form"
+            :class="{ wrong: showError }"
             placeholder="請輸入密碼"
             autocomplete="current-password"
             required
@@ -68,14 +73,16 @@
 
 <script>
 import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
+
 export default {
   data() {
     return {
       account: "",
       password: "",
       isProcessing: false,
-      error: false,
-      errorMesssage: "帳號不存在",
+      showError: false,
+      errorMessage: "",
     };
   },
 
@@ -83,33 +90,32 @@ export default {
     async handleSubmit() {
       try {
         if (!this.account || !this.password) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填寫帳號/密碼",
+          });
           return;
         }
-
         const response = await authorizationAPI.signIn({
           account: this.account,
           password: this.password,
         });
-        console.log(response);
+        // console.log("伺服器回應", response);
         const { data } = response;
         if (data.status === "error") {
-          throw new Error(data.message);
+          this.showError = true;
+          this.password = "";
+          this.errorMessage = data.message;
+          return;
         }
-        // // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.token);
-        // 透過 setCurrentUser  將資料 傳給 vuex
-        // this.$store.commit('vuex, store的方法名稱' , 帶入的資料 )
-        // this.$store.commit('setCurrentUser',data.user)
-
-        // // 成功登入後轉址到.....
         const id = data.user.id;
-        this.$router.push(`/home/${id}`);
+        this.$router.push(`/home`);
       } catch (error) {
-        // 將密碼欄位清空
-        this.password = "";
-        // 顯示錯誤提示
-        this.isProcessing = false;
-        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: error,
+        });
       }
     },
   },
